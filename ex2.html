@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    .myDiv {
+        width: 125px;
+        height: 25px;
+        background-color: yellow;
+        margin: 1px;
+    }
+</style>
+
+<body>
+    <div id="1" class="myDiv">1</div>
+    <div id="2" class="myDiv">2</div>
+
+    <div id="outer">
+        X
+        <div id="6">6</div>
+        <div id="7">7</div>
+        <div id="8">8</div>
+        <div id="9">9</div>
+        <div id="10">10</div>
+        <div id="11">11</div>
+        <div id="12">12</div>
+        <div id="13">13</div>
+        <div id="14">14</div>
+        <div id="15">15</div>
+        <h1>Du klikker på en div med dette id:</h1>
+        <p id="outputtext">
+            <p>
+    </div>
+
+    <script>
+        outerDiv = document.getElementById("outer");
+
+        //outerDiv.onclick = event => console.log(event.target.getAttribute('id'))
+
+        outerDiv.addEventListener('click', event => {
+            event.preventDefault();
+            document.getElementById("outputtext").innerHTML = event.target.getAttribute('id')
+            console.log(event.target.getAttribute('id'))
+        });
+
+        let x1 = document.getElementById("1");
+        x1.onclick = (x => x1.innerHTML = 'Hi from: ' + x1.id);
+        let x2 = document.getElementById("2");
+        x2.onclick = (x => x2.innerHTML = 'Hi from: ' + x2.id);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        th,
+        td {
+            border-bottom: solid 1px silver;
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>List examples</h1>
+
+    <form id="inputform">
+        <input type="text" id="textinputbox" /> <button id="addnamebtn">Add name</button>
+        <button id="removefirstbtn">Remove first</button>
+        <button id="removelastbtn">Remove last</button>
+    </form>
+
+    <p id="personlist"></p>
+
+    <p id="carlist"></p>
+
+    <p>
+        Price: <input id="filterListInput" type="text" />
+        <button id="filterListInputBtn">Price less than</button>
+    </p>
+
+
+    <script>
+        function renderArrayToList(arrayToRender, element) {
+            let html = '<ul>' + nameArray1.map((x) => '<li>' + x + '</li>').join("") + '</ul>'
+            element.innerHTML = html;
+        }
+
+        var nameArray1 = ["Lars", "Peter", "Jan", "Ian"]
+
+
+        renderArrayToList(nameArray1, document.getElementById("personlist"));
+
+        addNameBtn = document.getElementById("addnamebtn");
+        addNameBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            nameArray1.push(document.getElementById("textinputbox").value);
+            renderArrayToList(nameArray1, document.getElementById("personlist"));
+        });
+
+        removeFirstBtn = document.getElementById("removefirstbtn");
+        removeFirstBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            nameArray1.shift();
+            renderArrayToList(nameArray1, document.getElementById("personlist"));
+        });
+
+        removeLastBtn = document.getElementById("removelastbtn");
+        removeLastBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            nameArray1.pop();
+            renderArrayToList(nameArray1, document.getElementById("personlist"));
+        });
+
+        const cars = [{
+                id: 1,
+                year: 1997,
+                make: 'Ford',
+                model: 'E350',
+                price: 3000
+            },
+            {
+                id: 2,
+                year: 1999,
+                make: 'Chevy',
+                model: 'Venture',
+                price: 4900
+            },
+            {
+                id: 3,
+                year: 2000,
+                make: 'Chevy',
+                model: 'Venture',
+                price: 5000
+            },
+            {
+                id: 4,
+                year: 1996,
+                make: 'Jeep',
+                model: 'Grand Cherokee',
+                price: 4799
+            },
+            {
+                id: 5,
+                year: 2005,
+                make: 'Volvo',
+                model: 'V70',
+                price: 44799
+            }
+        ];
+
+        function renderCarArrayToHtmlTable(cars) {
+            const carRows = cars.map(x =>
+                `<tr><td>${x.id}</td><td>${x.year}</td><td>${x.make}</td><td>${x.price}</td></tr>`).join("");
+            const carTable =
+                `<table><thead><tr><th>Id</th><th>Year</th><th>Make</th><th>Price</th></tr></thead><tbody>${carRows}</tbody></table>`;
+            return carTable;
+        }
+
+        document.getElementById("carlist").innerHTML = renderCarArrayToHtmlTable(cars);
+
+        filterListInputBtn = document.getElementById("filterListInputBtn");
+        filterListInputBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            let priceMax = document.getElementById("filterListInput").value;
+            if (isNaN(priceMax)) {
+                alert('Indtast et tal');
+                document.getElementById("filterListInput").value = null;
+            } else {
+                document.getElementById("carlist").innerHTML =
+                    renderCarArrayToHtmlTable(cars.filter(x => x.price < priceMax));
+            }
+        });
+    </script>
+
+</body>
+
+</html>
